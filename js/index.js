@@ -17,9 +17,9 @@ createApp({
   },
   mounted() {
     if (this.tasks.length > 0) {
-      const tasks = [ ...this.tasks ]
-      const lastId = tasks.sort((a, b) => a.id - b.id)
-      this.nextId = lastId[this.tasks.length - 1].id + 1
+      const tasks = [ ...this.tasks ];
+      const lastId = tasks.sort((a, b) => a.id - b.id);
+      this.nextId = lastId[this.tasks.length - 1].id + 1;
     }
   },
   methods: {
@@ -36,8 +36,8 @@ createApp({
       localStorage.setItem('tasks', JSON.stringify(this.tasks));
     },
     deleteTask(index) {
-      this.tasks.splice(index, 1)
-      this.updateTasks()
+      this.tasks.splice(index, 1);
+      this.updateTasks();
     },
     onOrderChange(event) {
       // Remove item from old index

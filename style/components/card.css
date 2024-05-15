@@ -3,7 +3,8 @@
     gap: .5em;
 }
 
-.task, .new-task {
+.task,
+.new-task {
     border-radius: .5em;
     position: relative;
 }
@@ -51,12 +52,14 @@
     margin-right: 2em;
 }
 
-.title-input, #new-title {
+.title-input,
+#new-title {
     background: transparent;
     font-size: 1.5em;
 }
 
-.task .details, #new-details {
+.task .details,
+#new-details {
     padding: 0;
     border: none;
     resize: vertical;
