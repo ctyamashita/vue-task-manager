@@ -19,6 +19,26 @@
 <body>
   <h1>Tasks</h1>
   <div id="app">
+    <div class="lists" v-sortable>
+      <div v-for="(list, i) in lists" class="list" :key="list.id">
+        <div class="tasks" v-sortable="{options: {group: 'shared'}}">
+          <p>List {{i}}</p>
+          <div v-for="(task, index) in list.tasks" class="task" :key="task.id">
+            <div class="title">
+              <label class="checkbox-container">
+                <input type="checkbox" name="completed" v-model="task.completed" v-on:change="updateTasks">
+                <span class="checkmark"></span>
+              </label>
+              <input type="text" name="title" v-model="task.title" class="title-input" v-on:input="updateTasks">
+            </div>
+            <pre contenteditable="true" v-on:blur="onDetailsChange" class="details" :id="task.id">{{task.details}}</pre>
+            <button v-on:click="deleteTask(index)" class="delete"><i class="fa-solid fa-xmark"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
     <div class="tasks" v-sortable @end="onOrderChange">
       <div v-for="(task, index) in tasks" class="task" :key="task.id">
         <div class="title">

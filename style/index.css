@@ -114,3 +114,7 @@ input[type=checkbox] {
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
 }
+
+.lists {
+  display: flex;
+}
