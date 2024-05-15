@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tasks</title>
+<link rel="stylesheet" href="style/index.css">
+<script src="https://kit.fontawesome.com/b6f21dd2ae.js" crossorigin="anonymous"></script>
+<script type="importmap">
+  {
+    "imports": {
+      "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.prod.js",
+      "sortablejs": "https://ga.jspm.io/npm:sortablejs@1.15.2/modular/sortable.esm.js",
+      "vue-sortable": "https://cdn.jsdelivr.net/npm/vue3-sortablejs@1.0.7/+esm"
+    }
+  }
+</script>
+</head>
+<body>
+  <h1>Tasks</h1>
+  <div id="app">
+    <div class="tasks" v-sortable @end="onOrderChange">
+      <div v-for="(task, index) in tasks" class="task" :key="task.id">
+        <div class="title">
+          <label class="checkbox-container">
+            <input type="checkbox" name="completed" v-model="task.completed" v-on:change="updateTasks">
+            <span class="checkmark"></span>
+          </label>
+          <input type="text" name="title" v-model="task.title" class="title-input" v-on:input="updateTasks">
+        </div>
+        <pre contenteditable="true" v-on:blur="onDetailsChange" class="details" :id="task.id">{{task.details}}</pre>
+        <button v-on:click="deleteTask(index)" class="delete"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+    </div>
+      <form v-on:submit="addTask" class="new-task">
+        <div>
+          <input type="text" id="new-title" v-model="newTitle" placeholder="new task title">
+        </div>
+        <textarea type="text" id="new-details" v-model="newDetails" placeholder="new task details"></textarea>
+        <button type="submit"><i class="fa-solid fa-plus"></i></button>
+      </form>
+  </div>
+  <script src="js/index.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+.tasks {
+    display: grid;
+    gap: .5em;
+}
+
+.task, .new-task {
+    border-radius: .5em;
+    position: relative;
+}
+
+.task {
+    cursor: grab;
+    background: lightsteelblue;
+    overflow: hidden;
+    outline: solid 1em lightsteelblue;
+    outline-offset: -1em;
+}
+
+.task > .title {
+    padding: 1em;
+}
+
+.new-task {
+    background-color: lightskyblue;
+}
+
+.new-task form {
+    /* padding: 1em; */
+    width: inherit;
+}
+
+.task .title {
+    display: flex;
+    gap: .5em;
+}
+
+.task .title input[type=text] {
+    width: 100%;
+}
+
+#new-details {
+    width: calc(100% - 1.5em);
+    margin: 0 .5em 0 1em;
+}
+
+#new-title {
+    margin: .5em 2.5em .5em .5em;
+}
+
+.title-input {
+    margin-right: 2em;
+}
+
+.title-input, #new-title {
+    background: transparent;
+    font-size: 1.5em;
+}
+
+.task .details, #new-details {
+    padding: 0;
+    border: none;
+    resize: vertical;
+    background: transparent;
+}
+
+.task .details {
+    width: calc(100% - 9.5em);
+    margin: 0 5.5em 1.5em 4em;
+    cursor: text;
+}
+
+.task .details:not(:focus):empty {
+    height: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.task:has(.details:not(:focus):empty) input[type=text] {
+    border-bottom: none;
+}
+
+.delete:hover, .delete:focus,
+.new-task button[type=submit]:hover,
+.new-task button[type=submit]:focus {
+    opacity: 1;
+}
+
+.new-task button[type=submit], .delete {
+    position: absolute;
+    padding: 0;
+    top: 1.2em;
+    right: 1.2em;
+    border: none;
+    background-color: white;
+    height: 30px;
+    min-width: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    opacity: .3;
+    line-height: 1;
+    color: grey;
+}
+
+.task:has(:checked) {
+    /* opacity: .5; */
+    filter: grayscale(.5);
+    background: yellowgreen;
+    outline-color: yellowgreen;
+}
+
+.task.task:has(:checked) *:not(i) {
+    text-decoration: line-through;
+    color: darkgreen;
+}
