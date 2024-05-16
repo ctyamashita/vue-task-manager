@@ -20,13 +20,12 @@ h1 {
 
 #app {
   display: grid;
-  gap: .5em;
+  gap: .5rem;
 }
 
 #app > * {
   margin: 0 auto;
   width: 95%;
-  max-width: 600px;
 }
 
 input[type=text] {
@@ -116,5 +115,31 @@ input[type=checkbox] {
 }
 
 .lists {
+  display: grid;
+  gap: .5rem;
+}
+
+@media (min-width: 900px) {
+  .lists {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 1200px) {
+  .lists {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.list {
+  background: red;
+  padding: .5rem;
   display: flex;
+  gap: .5rem;
+  flex-direction: column;
+  border-radius: .75rem;
+  height: fit-content;
+}
+
+.list:has(input:not(:checked)) {
+  background-color: white;
 }

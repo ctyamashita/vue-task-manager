@@ -19,46 +19,30 @@
 <body>
   <h1>Tasks</h1>
   <div id="app">
-    <div class="lists" v-sortable>
-      <div v-for="(list, i) in lists" class="list" :key="list.id">
-        <div class="tasks" v-sortable="{options: {group: 'shared'}}">
-          <p>List {{i}}</p>
-          <div v-for="(task, index) in list.tasks" class="task" :key="task.id">
+    <div class="lists">
+      <div v-for="(list, i) in lists" class="list" :key="`l-${list.id}`">
+        <input type="text" v-model="list.title" v-on:input="updateLists" class="list-title">
+        <div class="tasks" v-sortable="{options: {group: 'shared'}}" @end="onOrderChange" :id="list.id">
+          <div v-for="(task, index) in list.tasks" class="task" :key="`t-${task.id}`">
             <div class="title">
               <label class="checkbox-container">
-                <input type="checkbox" name="completed" v-model="task.completed" v-on:change="updateTasks">
+                <input type="checkbox" name="completed" v-model="task.completed" v-on:change="updateLists">
                 <span class="checkmark"></span>
               </label>
-              <input type="text" name="title" v-model="task.title" class="title-input" v-on:input="updateTasks">
+              <input type="text" name="title" v-model="task.title" class="title-input" v-on:input="updateLists">
             </div>
             <pre contenteditable="true" v-on:blur="onDetailsChange" class="details" :id="task.id">{{task.details}}</pre>
-            <button v-on:click="deleteTask(index)" class="delete"><i class="fa-solid fa-xmark"></i></button>
+            <button v-on:click="deleteTask(list.id, index)" class="delete"><i class="fa-solid fa-xmark"></i></button>
           </div>
         </div>
-      </div>
-    </div>
-
-
-    <div class="tasks" v-sortable @end="onOrderChange">
-      <div v-for="(task, index) in tasks" class="task" :key="task.id">
-        <div class="title">
-          <label class="checkbox-container">
-            <input type="checkbox" name="completed" v-model="task.completed" v-on:change="updateTasks">
-            <span class="checkmark"></span>
-          </label>
-          <input type="text" name="title" v-model="task.title" class="title-input" v-on:input="updateTasks">
-        </div>
-        <pre contenteditable="true" v-on:blur="onDetailsChange" class="details" :id="task.id">{{task.details}}</pre>
-        <button v-on:click="deleteTask(index)" class="delete"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-    </div>
-      <form v-on:submit="addTask" class="new-task">
         <div>
-          <input type="text" id="new-title" v-model="newTitle" placeholder="new task title">
+          <button v-on:click="addTask(list.id)" class="add"><i class="fa-solid fa-plus"></i></button>
         </div>
-        <textarea type="text" id="new-details" v-model="newDetails" placeholder="new task details"></textarea>
-        <button type="submit"><i class="fa-solid fa-plus"></i></button>
-      </form>
+      </div>
+      <div disabled>
+        <button v-on:click="addList" class="add"><i class="fa-solid fa-square-plus"></i></button>
+      </div>
+    </div>
   </div>
   <script src="js/index.js" type="module"></script>
 </body>
