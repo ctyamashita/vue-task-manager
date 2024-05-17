@@ -24,6 +24,8 @@ createApp({
     const lists = [ ...this.lists ];
     const tasks = [];
     lists.forEach(list=>list.tasks.forEach(task=>tasks.push(task)));
+    this.lists.forEach(list=>this.calculateCompletion(list))
+    console.log(this.lists[0])
 
     if (lists.length > 0) {
       const lastListId = lists.sort((a,b) => a.id - b.id);
@@ -43,7 +45,7 @@ createApp({
       this.updateLists();
     },
     addList() {
-      this.lists.push({id: this.nextListId, title: `List ${this.nextListId}`,tasks: []});
+      this.lists.push({id: this.nextListId, title: `List ${this.nextListId}`,tasks: [], completion: 0});
       this.nextListId += 1;
       this.updateLists();
     },
@@ -61,6 +63,7 @@ createApp({
       this.updateLists();
     },
     updateLists() {
+      this.lists.forEach(list=>this.calculateCompletion(list))
       localStorage.setItem('lists', JSON.stringify(this.lists));
     },
     onOrderChange(event) {
@@ -84,6 +87,13 @@ createApp({
       const task = list.tasks.find(task=>task.id == taskId);
       task.details = input;
       this.updateLists();
+    },
+    calculateCompletion(list) {
+      const total = list.tasks.length;
+      const completed = list.tasks.filter(task=>task.completed).length;
+      const completion = Math.round((completed / total) * 100);
+      list.completion = completion
+      // list.completion = {background: `linear-gradient(red ${completion}%, white${completion}%)`}
     }
   }
 }).use(vue3Sortablejs).mount('#app')

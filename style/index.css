@@ -2,10 +2,12 @@
 
 :root {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  --green: #b0c97d;
+  --lightgray: #eaeaea;
 }
 
 pre, input[type=text] {
-  color: rgba(0, 0, 0, .8);
+  color: rgba(0, 0, 0, .7);
 }
 
 body {
@@ -131,7 +133,7 @@ input[type=checkbox] {
 }
 
 .list {
-  background: red;
+  background: white;
   padding: .5rem;
   display: flex;
   gap: .5rem;
@@ -140,6 +142,6 @@ input[type=checkbox] {
   height: fit-content;
 }
 
-.list:has(input:not(:checked)) {
-  background-color: white;
+.all-done {
+  background: var(--green);
 }

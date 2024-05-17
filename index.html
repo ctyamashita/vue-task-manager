@@ -20,7 +20,7 @@
   <h1>Tasks</h1>
   <div id="app">
     <div class="lists">
-      <div v-for="(list, i) in lists" class="list" :key="`l-${list.id}`">
+      <div v-for="(list, i) in lists" :class="`${(list.tasks.length == 0 || list.tasks.map(task=>task.completed).includes(false)) ? '' : 'all-done '}list`" :key="`l-${list.id}`">
         <input type="text" v-model="list.title" v-on:input="updateLists" class="list-title">
         <div class="tasks" v-sortable="{options: {group: 'shared'}}" @end="onOrderChange" :id="list.id">
           <div v-for="(task, index) in list.tasks" class="task" :key="`t-${task.id}`">
