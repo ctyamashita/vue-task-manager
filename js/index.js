@@ -38,16 +38,30 @@ createApp({
     }
   },
   methods: {
-    addTask(listId) {
+    addTask(e) {
+      const el = e.currentTarget;
+      const listId = el.dataset.list;
       const list = this.lists.find(list=>list.id == listId);
-      list.tasks.push({title: `Task ${this.nextTaskId}`, details: `Details ${this.nextTaskId}`, completed: false, id: this.nextTaskId});
+      list.tasks.push({title: `t-${this.nextTaskId} (Tab to add details)`, details: '', completed: false, id: this.nextTaskId});
       this.nextTaskId += 1;
       this.updateLists();
+      setTimeout(() => {
+        const tasks = document.querySelector(`.tasks[id="${listId}"]`);
+        const input = tasks.lastElementChild.querySelector('.title-input');
+        input.focus();
+        input.select();
+      }, 300);
     },
-    addList() {
+    addList(e) {
       this.lists.push({id: this.nextListId, title: `List ${this.nextListId}`,tasks: [], completion: 0});
       this.nextListId += 1;
       this.updateLists();
+      setTimeout(() => {
+        const lists = document.querySelectorAll('.list-title');
+        const input = lists[lists.length - 1]
+        input.focus();
+        input.select()
+      }, 300);
     },
     updateTasks() {
       localStorage.setItem('tasks', JSON.stringify(this.tasks));
@@ -63,7 +77,7 @@ createApp({
       this.updateLists();
     },
     updateLists() {
-      this.lists.forEach(list=>this.calculateCompletion(list))
+      this.lists.forEach(list=>this.calculateCompletion(list));
       localStorage.setItem('lists', JSON.stringify(this.lists));
     },
     onOrderChange(event) {
@@ -94,6 +108,26 @@ createApp({
       const completion = Math.round((completed / total) * 100);
       list.completion = completion
       // list.completion = {background: `linear-gradient(red ${completion}%, white${completion}%)`}
+    },
+    checkEntry(listId, index) {
+      const list = this.lists.find(list=>list.id == listId);
+      const task = list.tasks[index];
+      if (task.title.length == 0) {
+        this.deleteTask(listId, index)
+      }
+    },
+    checkEntryList() {
+      this.lists = this.lists.filter(list=>list.title);
+      this.updateLists();
+    },
+    keyUpHandler(e) {
+      if (e.key == 'Enter' || e.key == ' ') {
+        e.currentTarget.click();
+        const task = e.currentTarget.parentElement.parentElement.firstElementChild.firstElementChild.firstElementChild.firstElementChild
+        console.log(task)
+        task.focus()
+      }
+
     }
   }
 }).use(vue3Sortablejs).mount('#app')

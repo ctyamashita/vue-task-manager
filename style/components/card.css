@@ -49,11 +49,11 @@
 .task .details {
     padding: 0;
     border: none;
-    resize: vertical;
     background: transparent;
     width: calc(100% - 11rem);
     margin: 0 5.5rem 1.5rem;
     cursor: text;
+    overflow: auto;
 }
 
 .task .details:not(:focus):empty {
@@ -89,18 +89,36 @@
 
 .add {
     width: 100%;
-    border-radius: 0 0 .5rem .5rem;
-    border: solid 2px darksalmon;
     background: transparent;
     cursor: pointer;
-    height: 61.5px;
+    /* height: 61.5px; */
     font-weight: 900;
-    font-size: 2rem;
-    color: darksalmon;
+    padding: .5rem 0;
+    /* font-size: 2rem; */
+    border-radius: .5rem;
+    border: solid 2px white;
+    color: white;
 }
 
 .add:hover,
 .add:focus {
+    color: darksalmon;
+    border-color: transparent;
+    background-color: white;
+}
+
+.list .add {
+    border: solid 2px darksalmon;
+    color: darksalmon;
+    /* margin-top: .5rem; */
+}
+
+.list:has(.tasks:not(:empty)) .add {
+    margin-top: .5rem;
+}
+
+.list .add:hover,
+.list .add:focus {
     color: white;
     border-color: transparent;
     background-color: indianred;
@@ -119,7 +137,30 @@
 
 .task.task:has(:checked) *:not(i) {
     text-decoration: line-through;
-    color: darkgreen;
+    color: darkolivegreen;
+}
+
+.expand-btn {
+    display: inline-block;
+    color: darkolivegreen;
+    background-color: rgba(255,255,255,.3);
+    width: 100%;
+    text-align: center;
+    padding: .5rem 0;
+    border-radius: 0 0 .5rem .5rem;
+    cursor: pointer;
+}
+
+.list:not(.all-done) .expand-btn {
+    display: none;
+}
+
+.expand-btn:has(:checked) {
+    margin-top: .5rem;
+}
+
+.expand-btn:has(:checked) i {
+    transform: scaleY(-1);
 }
 
 .list-title {
@@ -132,5 +173,5 @@
 }
 
 .all-done .list-title {
-    color: darkgreen;
+    color: darkolivegreen;
 }
