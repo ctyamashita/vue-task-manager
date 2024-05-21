@@ -17,18 +17,17 @@
 </script>
 </head>
 <body>
-  <h1>Lists</h1>
   <div id="app">
     <div class="lists-container">
       <ul class="lists">
-        <li v-for="(list, i) in lists" :class="`${(list.tasks.length == 0 || list.tasks.map(task=>task.completed).includes(false)) ? '' : 'all-done '}list`" :key="`l-${list.id}`">
+        <li v-for="(list, i) in lists" :class="`${(list.tasks.length == 0 || list.completion !== 100) ? '' : 'all-done '}list`" :key="`l-${list.id}`">
           <div class="list-title-container">
             <input type="text" v-model="list.title" v-on:input="updateLists" class="list-title" v-on:blur="checkEntryList">
-            <span class="counter">{{ list.tasks.filter(task=>task.completed).length == list.tasks.length && list.tasks.length > 0 ? 'completed' : `${list.tasks.filter(task=>task.completed).length}/${list.tasks.length}`}}</span>
+            <span class="counter">{{ list.completion }}%</span>
           </div>
           <div class="tasks-container">
-            <ul class="tasks" v-sortable="{options: {group: 'shared'}}" @end="onOrderChange" :id="list.id">
-              <li v-for="(task, index) in list.tasks" class="task" :key="`t-${task.id}`">
+            <ul class="tasks" v-sortable="{options: {group: 'shared'}}" @end="onOrderChange" :id="list.id" v-on:keyup="keyUpTasksHandler">
+              <li v-for="(task, index) in list.tasks" class="task" :key="`t-${task.id}`" :data-index="index">
                 <div class="title">
                   <label class="checkbox-container">
                     <input type="checkbox" name="completed" v-model="task.completed" v-on:change="updateLists">
@@ -41,8 +40,8 @@
               </li>
             </ul>
             <div>
-              <button v-on:click="addTask" class="add" :data-list="list.id" ><i class="fa-solid fa-plus"></i></button>
-              <label class="expand-btn" role="button" tabindex="0" v-on:keyup="keyUpHandler">
+              <button v-on:click="addTask" class="add" :data-list="list.id"><i class="fa-solid fa-plus"></i></button>
+              <label class="expand-btn" role="button" tabindex="0" v-on:keyup="keyUpExpandHandler" :data-list="list.id">
                 <i class="fa-solid fa-chevron-down"></i>
                 <input type="checkbox" class="expanded" v-on:click="expand">
               </label>

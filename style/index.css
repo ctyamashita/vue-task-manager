@@ -20,10 +20,6 @@ body {
   background-color: darksalmon;
 }
 
-h1 {
-  text-align: center;
-}
-
 #app {
   display: grid;
   gap: .5rem;
@@ -31,7 +27,7 @@ h1 {
 
 #app > * {
   margin: 0 auto;
-  width: 95%;
+  width: calc(100% - 1rem);
 }
 
 input[type=text] {
@@ -124,6 +120,7 @@ input[type=checkbox] {
 .lists {
   display: grid;
   gap: .5rem;
+  margin: .5rem 0;
 }
 
 @media (min-width: 900px) {
@@ -192,7 +189,7 @@ input[type=checkbox] {
   position: absolute;
   right: -0.5rem;
   font-weight: 100;
-  letter-spacing: .25rem;
+  /* letter-spacing: .25rem; */
   background: lightsteelblue;
   padding: .5rem .75rem;
   border-radius: 2rem 0 0 2rem;
