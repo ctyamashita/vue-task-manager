@@ -146,9 +146,8 @@ createApp({
     },
     keyUpTitleHandler(e) {
       if (e.key !== 'Enter') return;
-
-      
+      const addBtn = document.querySelector('.list:has(:focus) .add');
+      addBtn.focus();
     }
-
   }
 }).use(vue3Sortablejs).mount('#app')
