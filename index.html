@@ -33,7 +33,7 @@
                     <input type="checkbox" name="completed" v-model="task.completed" v-on:change="updateLists">
                     <span class="checkmark"></span>
                   </label>
-                  <input type="text" name="title" v-model="task.title" class="title-input" v-on:input="updateLists" v-on:blur="checkEntry(list.id, index)">
+                  <input type="text" name="title" v-model="task.title" class="title-input" v-on:input="updateLists" v-on:blur="checkEntry(list.id, index)" v-on:keyup="keyUpTitleHandler">
                 </div>
                 <pre contenteditable="true" v-on:blur="onDetailsChange" class="details" :id="task.id">{{task.details}}</pre>
                 <button v-on:click="deleteTask(list.id, index)" class="delete"><i class="fa-solid fa-xmark"></i></button>
